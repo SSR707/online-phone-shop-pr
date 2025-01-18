@@ -26,7 +26,7 @@ import { ProductModule } from './product/product.module';
     ]),
     RedisModule.forRoot({
       type: 'single',
-      url: 'redis://localhost:6379',
+      url: 'redis://localhost:6383',
     }),
     ConfigModule.forRoot({
       isGlobal: true,
