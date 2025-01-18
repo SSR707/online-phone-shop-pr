@@ -47,7 +47,7 @@ jobs:
           npx docker-compose up -d
           npm i --force
           npm run build
-          npx prisma migrate dev --name init
+          npx prisma migrate deploy
           npx pm2 restart nest-ja-app-prisma
           ENDSSH
 

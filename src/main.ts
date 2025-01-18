@@ -9,7 +9,7 @@ async function bootstrap() {
 });
 app.setGlobalPrefix('api');
 const config = new DocumentBuilder()
-.setTitle('Phone Project Prisma')
+.setTitle('Phone Project Prisma ok')
 
 .addBearerAuth(
   {
