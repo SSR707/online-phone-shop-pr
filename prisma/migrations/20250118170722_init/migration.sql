@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Otp" ALTER COLUMN "expire_at" SET DATA TYPE TIMESTAMPTZ;

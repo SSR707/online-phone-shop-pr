@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELED
+}
+
+enum ProductStatus {
+  ACTIVE
+  SOLD
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  fullname  String
+  age       Int
+  phone     String
+  email     String  @unique
+  password  String
+  role      Role    @default(USER)
+  is_active Boolean @default(false)
+  Order     Order[]
+}
+
+model Order {
+  id           Int            @id @default(autoincrement())
+  user         User           @relation(fields: [userId], references: [id])
+  total_price  Int
+  status       OrderStatus    @default(PENDING)
+  userId       Int
+  OrderProduct OrderProduct[]
+}
+
+model OrderProduct {
+  id        Int     @id @default(autoincrement())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Product {
+  id           Int            @id @default(autoincrement())
+  name         String
+  price        Decimal
+  info         String
+  quantity     Int
+  status       ProductStatus
+  is_active    Boolean        @default(false)
+  OrderProduct OrderProduct[]
+}
+
+model Otp {
+  id        Int      @id @default(autoincrement())
+  email     String 
+  otp       Int
+  expire_at DateTime? @db.Timestamptz()
+}
